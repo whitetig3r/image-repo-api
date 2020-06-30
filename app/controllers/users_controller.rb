@@ -1,15 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :authenticate_user
+  before_action :set_user, only: [:update]
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-  end
-
-  # GET /users/1
-  # GET /users/1.json
-  def show
+  def find
+    @user = User.find_by(email: params[:email])
+    render :show
   end
 
   # POST /users
@@ -34,12 +29,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -49,7 +38,7 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       pre_params = params.require(:user).permit(
-          :first_name, :last_name, :email_address
+          :first_name, :last_name, :email
       )
       pre_params.merge!( password: params[:password] )
     end
