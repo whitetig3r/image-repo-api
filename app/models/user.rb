@@ -3,6 +3,8 @@ require 'validators/email_validator'
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :uploads
+
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true, email: true
   validates :password, presence: true, length: { in: 6..15 }

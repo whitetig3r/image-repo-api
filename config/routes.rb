@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :uploads
     resources :users
     post 'user_token' => 'user_token#create'
     post 'users/find' => 'users#find'
