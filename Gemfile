@@ -18,6 +18,10 @@ gem 'bcrypt', '~> 3.1.7'
 # handle active storage in production
 gem "aws-sdk-s3", require: false
 
+gem "mini_magick"
+
+gem 'active_storage_base64'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
