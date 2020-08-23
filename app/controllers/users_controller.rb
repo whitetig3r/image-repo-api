@@ -22,6 +22,13 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    unless @user == current_user
+      render json: {
+          "error": "not authorized to update user details"
+      }, status: :unauthorized
+      return
+    end
+
     if @user.update(user_params)
       render :show, status: :ok, location: @user
     else
