@@ -7,6 +7,11 @@ class UploadsController < ApplicationController
   end
 
   def show
+    if @upload.visual_asset.attached?
+      redirect_to rails_blob_url(@upload.visual_asset)
+    else
+      render :no_attached_asset
+    end
   end
 
   def create

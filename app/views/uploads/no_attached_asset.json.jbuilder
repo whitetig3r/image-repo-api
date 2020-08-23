@@ -1,0 +1,1 @@
+json.error 'No assets attached with upload'
