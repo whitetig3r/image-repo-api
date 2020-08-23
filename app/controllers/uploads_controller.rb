@@ -3,7 +3,7 @@ class UploadsController < ApplicationController
   before_action :set_upload, only: [:show, :update, :destroy]
 
   def index
-    @uploads = Upload.all
+    @uploads = Upload.where(user_id: current_user.id)
   end
 
   def show
@@ -16,7 +16,7 @@ class UploadsController < ApplicationController
     @upload = Upload.new(upload_params)
 
     if @upload.save
-      render :show, status: :created, location: @upload
+      render :show, status: :created
     else
       render json: @upload.errors, status: :unprocessable_entity
     end
@@ -42,6 +42,6 @@ class UploadsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def upload_params
-      params.require(:upload).permit(:title, :caption, :visual_asset)
+      params.permit(:title, :caption, :visual_asset, :public).merge(user_id: current_user.id)
     end
 end
